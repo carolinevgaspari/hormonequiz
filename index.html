@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Your Hormone Type? The 2-Minute Quiz</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F9F4EE;color:#2C2018;min-height:100vh}
+.wrap{max-width:660px;margin:0 auto;padding:0 18px 60px}
+.hdr{text-align:center;padding:28px 0 18px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#C17355;font-weight:600}
+.card{background:#fff;border-radius:22px;box-shadow:0 4px 40px rgba(107,76,59,.11);padding:42px 46px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#C17355,#7A9E7E)}
+@media(max-width:520px){.card{padding:28px 20px}}
+.foot{text-align:center;margin-top:22px;font-size:12px;color:#8B7060;line-height:1.7}
+.foot a{color:#C17355;text-decoration:none}
+.pgwrap{margin-bottom:30px}
+.pgmeta{display:flex;justify-content:space-between;font-size:11px;color:#8B7060;margin-bottom:7px;text-transform:uppercase;letter-spacing:.04em}
+.pgtrack{height:5px;background:#F0E8DC;border-radius:99px;overflow:hidden}
+.pgfill{height:100%;background:linear-gradient(90deg,#C17355,#7A9E7E);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C17355;margin-bottom:14px}
+.bigtitle{font-size:clamp(26px,5vw,40px);font-weight:700;line-height:1.15;color:#2C2018;margin-bottom:18px}
+.bigtitle i{font-style:italic;color:#C17355;font-weight:600}
+.intro-sub{font-size:15px;line-height:1.68;color:#5C4033;margin-bottom:26px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.bdg{background:#F9F4EE;border:1px solid #F0E8DC;border-radius:99px;padding:5px 13px;font-size:12px;color:#5C4033}
+.btn-go{width:100%;padding:15px;background:#C17355;color:#fff;border:none;border-radius:99px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;font-family:inherit}
+.btn-go:hover{background:#A85F3F;transform:translateY(-2px)}
+.qlabel{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#7A9E7E;margin-bottom:10px}
+.qtext{font-size:clamp(17px,3.5vw,24px);font-weight:700;line-height:1.3;color:#2C2018;margin-bottom:24px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{background:#F9F4EE;border:2px solid #F0E8DC;border-radius:13px;padding:14px 17px;text-align:left;cursor:pointer;font-size:14px;color:#5C4033;line-height:1.45;display:flex;align-items:center;gap:12px;transition:border-color .2s,color .2s,transform .15s;font-family:inherit}
+.opt:hover{border-color:#C17355;color:#2C2018;transform:translateX(3px)}
+.opt.sel{border-color:#C17355;background:rgba(193,115,85,.07);color:#2C2018}
+.radio{width:19px;height:19px;border-radius:50%;border:2px solid #F0E8DC;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.opt.sel .radio{background:#C17355;border-color:#C17355}
+.rdot{width:7px;height:7px;border-radius:50%;background:#fff;opacity:0;transition:opacity .2s}
+.opt.sel .rdot{opacity:1}
+.ldwrap{text-align:center;padding:24px 0}
+.ldtitle{font-size:20px;font-weight:700;color:#2C2018;margin-bottom:6px}
+.ldsub{font-size:13px;color:#8B7060;margin-bottom:28px}
+.dots{display:flex;justify-content:center;gap:9px}
+.dot{width:10px;height:10px;border-radius:50%;animation:jmp 1.2s infinite ease-in-out}
+.dot:nth-child(1){background:#C17355;animation-delay:0s}
+.dot:nth-child(2){background:#7A9E7E;animation-delay:.2s}
+.dot:nth-child(3){background:#6B4C3B;animation-delay:.4s}
+@keyframes jmp{0%,80%,100%{transform:scale(.7);opacity:.5}40%{transform:scale(1.1);opacity:1}}
+.rtag{display:inline-block;background:#F9F4EE;border:1px solid #F0E8DC;border-radius:99px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8B7060;margin-bottom:14px}
+.ricon-bg{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:16px}
+.t1 .ricon-bg{background:rgba(193,115,85,.12)}
+.t2 .ricon-bg{background:rgba(122,158,126,.12)}
+.t3 .ricon-bg{background:rgba(107,76,59,.10)}
+.rtype{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.t1 .rtype{color:#C17355}
+.t2 .rtype{color:#5C7D60}
+.t3 .rtype{color:#6B4C3B}
+.rhead{font-size:clamp(22px,4vw,34px);font-weight:700;line-height:1.2;margin-bottom:18px;color:#6B4C3B}
+.rbody{font-size:15px;line-height:1.72;color:#5C4033;margin-bottom:24px}
+.actbox{border-radius:14px;padding:20px 22px;margin-bottom:28px}
+.t1 .actbox{background:rgba(193,115,85,.09);border:1px solid rgba(193,115,85,.22)}
+.t2 .actbox{background:rgba(122,158,126,.10);border:1px solid rgba(122,158,126,.25)}
+.t3 .actbox{background:rgba(107,76,59,.07);border:1px solid rgba(107,76,59,.17)}
+.actlbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px}
+.t1 .actlbl{color:#C17355}
+.t2 .actlbl{color:#5C7D60}
+.t3 .actlbl{color:#6B4C3B}
+.acttext{font-size:14px;line-height:1.6;font-weight:600;color:#5C4033}
+.divider{height:1px;background:#F0E8DC;margin:24px 0}
+.ctapre{font-size:14px;line-height:1.65;color:#5C4033;text-align:center;margin-bottom:18px}
+.btn-cta{display:block;width:100%;padding:17px;background:#7A9E7E;color:#fff;border:none;border-radius:99px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;transition:background .2s,transform .15s;font-family:inherit}
+.btn-cta:hover{background:#5C7D60;transform:translateY(-2px)}
+.ctanote{text-align:center;font-size:12px;color:#8B7060;margin-top:11px}
+.retake{display:block;text-align:center;margin-top:18px;font-size:13px;color:#8B7060;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit}
+.screen{animation:fIn .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes fIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-out{animation:fOut .22s cubic-bezier(.4,0,.2,1) both}
+@keyframes fOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-10px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">Coach Caro Fitness</div>
+  <div class="card" id="card"></div>
+  <div class="foot">No email required &middot; Takes 2 minutes &middot; Results are instant<br>
+    <a href="https://coachcarofitness.com/home" target="_blank">coachcarofitness.com</a>
+  </div>
+</div>
+<script>
+var Q=[
+  {t:"How would you describe your energy and mood throughout the day?",o:[
+    {t:"Wired but exhausted - I run on stress and crash hard at night",s:[2,0,1]},
+    {t:"Moody and irritable, especially the week before my period",s:[0,2,1]},
+    {t:"Flat and foggy all day - I just cannot seem to wake up or get going",s:[0,0,2]},
+    {t:"Anxious and overwhelmed, then totally drained by evening",s:[2,1,0]}
+  ]},
+  {t:"Where do you tend to hold most of your extra weight?",o:[
+    {t:"Mostly in my belly and lower back - it showed up out of nowhere",s:[2,0,1]},
+    {t:"Around my hips, thighs, and lower belly - I feel puffy all over",s:[0,2,0]},
+    {t:"Everywhere evenly - nothing I do seems to shift it",s:[0,1,2]},
+    {t:"My whole midsection - and it feels different from before, more stubborn",s:[1,1,1]}
+  ]},
+  {t:"How is your sleep?",o:[
+    {t:"I fall asleep fine but wake up between 2-4am and cannot get back to sleep",s:[2,0,0]},
+    {t:"I sleep but wake up feeling swollen or unrested, especially around my cycle",s:[0,2,0]},
+    {t:"I could sleep all day and still feel tired - I never feel rested",s:[0,0,2]},
+    {t:"I have a hard time winding down - my mind races at night",s:[2,0,1]}
+  ]},
+  {t:"Which of these symptoms sounds most like you?",o:[
+    {t:"Sugar cravings at night, belly fat, feeling wired and tired at the same time",s:[2,0,0]},
+    {t:"Bloating, heavy or irregular periods, mood swings, weight in hips and thighs",s:[0,2,0]},
+    {t:"Hair thinning, always cold, constipation, brain fog, low motivation",s:[0,0,2]},
+    {t:"Anxiety, poor recovery after workouts, cravings for salty or sweet foods",s:[2,1,0]}
+  ]},
+  {t:"How does your body respond when you eat less and exercise more?",o:[
+    {t:"I lose a little at first then my body holds on tight - stress makes it worse",s:[2,0,0]},
+    {t:"I feel more bloated and my hormones go haywire - my cycle gets affected",s:[0,2,0]},
+    {t:"Basically nothing happens - my metabolism feels completely stuck",s:[0,0,2]},
+    {t:"I burn out fast - my body does not recover well and I feel worse",s:[2,0,1]}
+  ]}
+];
+
+var R={
+  1:{tc:"t1",icon:"&#128293;",
+    type:"Type 1: The Cortisol-Driven Mom",
+    head:"Your stress hormones are running the show - and your body is paying the price.",
+    body:"When cortisol stays elevated day after day, your body shifts into survival mode. It holds onto belly fat as a fuel reserve, disrupts your sleep cycle, and drives intense cravings for sugar and carbs - especially at night. This is not a willpower issue. Your nervous system is genuinely overloaded, and your hormones are responding exactly as designed for a crisis. The problem is, the crisis never turns off. The good news is that targeted lifestyle shifts can lower cortisol fast and unlock the weight loss your body has been blocking.",
+    albl:"Your one action this week",
+    act:"Add a 10-minute wind-down ritual every night before bed - no screens, no scrolling. Try legs up the wall, deep breathing, or gentle stretching. This one habit signals your nervous system that the day is over and begins lowering cortisol so your body can stop hoarding fat overnight."
+  },
+  2:{tc:"t2",icon:"&#127810;",
+    type:"Type 2: The Estrogen-Dominant Mom",
+    head:"Your hormones are out of balance - and your body is holding onto every sign of it.",
+    body:"Estrogen dominance happens when estrogen rises too high relative to progesterone - often triggered by stress, a sluggish liver, or the early stages of perimenopause in your 30s. The result is stubborn weight around your hips and thighs, bloating that seems to follow your cycle, mood swings that feel bigger than they should, and a body that holds onto fluid and fat no matter what you eat. This is one of the most common and most misunderstood hormone patterns in women your age - and it is very addressable.",
+    albl:"Your one action this week",
+    act:"Add one cup of cruciferous vegetables daily - broccoli, cauliflower, Brussels sprouts, or cabbage. These contain a compound called DIM that helps your liver break down and clear excess estrogen naturally. Simple, free, and one of the most effective first steps for estrogen balance."
+  },
+  3:{tc:"t3",icon:"&#129514;",
+    type:"Type 3: The Thyroid-Tired Mom",
+    head:"Your metabolism is running in slow motion - and it is not your fault.",
+    body:"Your thyroid is the master regulator of your metabolism, body temperature, energy, and mood. When it is underperforming - even subtly, in ways that standard blood tests sometimes miss - everything slows down. Weight loss becomes nearly impossible because your body is burning fewer calories at rest, your digestion slows, your hair thins, and you feel cold and foggy even after a full night of sleep. The frustrating part is that eating less often makes this worse. Your body needs nourishment and the right signals to wake your thyroid back up.",
+    albl:"Your one action this week",
+    act:"Make sure you are eating enough - especially at breakfast. Skipping meals or eating too little sends a starvation signal that suppresses thyroid function further. Start your day with a warm, nutrient-dense meal including protein, healthy fat, and complex carbs within one hour of waking. This one shift can begin to reset your metabolic rate."
+  }
+};
+
+var qi=0,sc=[0,0,0];
+var card=document.getElementById("card");
+
+function go(fn){
+  var s=card.querySelector(".screen");
+  if(s){s.classList.add("fade-out");setTimeout(fn,220);}else{fn();}
+}
+
+function showIntro(){
+  qi=0;sc=[0,0,0];
+  card.innerHTML="<div class='screen'>"
+    +"<div class='eyebrow'>Free 2-Minute Quiz</div>"
+    +"<h1 class='bigtitle'>What Is Your<br><i>Hormone Type?</i></h1>"
+    +"<p class='intro-sub'>If you are eating well, staying active, and still cannot lose weight - your hormones are likely the missing piece.<br><br>Answer 5 quick questions and find out exactly which hormone pattern is working against you - and what to do about it.</p>"
+    +"<div class='badges'><span class='bdg'>&#9200; 2 minutes</span><span class='bdg'>&#128274; No email needed</span><span class='bdg'>&#10024; Instant results</span></div>"
+    +"<button class='btn-go' onclick='go(showQ)'>Take the Quiz &#8594;</button>"
+    +"</div>";
+}
+
+function showQ(){
+  var q=Q[qi];
+  var pct=Math.round(qi/Q.length*100);
+  var html="<div class='screen'>"
+    +"<div class='pgwrap'><div class='pgmeta'><span>Your Progress</span><span>"+qi+" of "+Q.length+"</span></div>"
+    +"<div class='pgtrack'><div class='pgfill' style='width:"+pct+"%'></div></div></div>"
+    +"<div class='qlabel'>Question "+(qi+1)+" of "+Q.length+"</div>"
+    +"<div class='qtext'>"+q.t+"</div>"
+    +"<div class='opts'>";
+  for(var i=0;i<q.o.length;i++){
+    html+="<button class='opt' id='o"+i+"' onclick='pick("+i+")'>"
+      +"<div class='radio'><div class='rdot'></div></div>"
+      +"<span>"+q.o[i].t+"</span></button>";
+  }
+  html+="</div></div>";
+  card.innerHTML=html;
+}
+
+function pick(i){
+  var btns=card.querySelectorAll(".opt");
+  for(var b=0;b<btns.length;b++) btns[b].classList.remove("sel");
+  document.getElementById("o"+i).classList.add("sel");
+  var s=Q[qi].o[i].s;
+  setTimeout(function(){
+    sc[0]+=s[0];sc[1]+=s[1];sc[2]+=s[2];
+    qi++;
+    if(qi<Q.length) go(showQ); else go(showLoading);
+  },360);
+}
+
+function showLoading(){
+  card.innerHTML="<div class='screen ldwrap'>"
+    +"<div class='ldtitle'>Analyzing your answers...</div>"
+    +"<div class='ldsub'>Identifying your hormone type</div>"
+    +"<div class='dots'><div class='dot'></div><div class='dot'></div><div class='dot'></div></div>"
+    +"</div>";
+  setTimeout(function(){go(showResult);},1800);
+}
+
+function showResult(){
+  var mx=Math.max(sc[0],sc[1],sc[2]);
+  var t=sc.indexOf(mx)+1;
+  var r=R[t];
+  card.innerHTML="<div class='screen "+r.tc+"'>"
+    +"<div class='pgwrap'><div class='pgmeta'><span>Your Progress</span><span>Complete &#10003;</span></div>"
+    +"<div class='pgtrack'><div class='pgfill' style='width:100%'></div></div></div>"
+    +"<div class='ricon-bg'>"+r.icon+"</div>"
+    +"<div class='rtag'>Your Hormone Type</div>"
+    +"<div class='rtype'>"+r.type+"</div>"
+    +"<h2 class='rhead'>"+r.head+"</h2>"
+    +"<p class='rbody'>"+r.body+"</p>"
+    +"<div class='actbox'><div class='actlbl'>"+r.albl+"</div><div class='acttext'>"+r.act+"</div></div>"
+    +"<div class='divider'></div>"
+    +"<p class='ctapre'>Want to know exactly how to work with your hormone type to finally lose weight for good?<br>Book your free Clarity Call and we will map it all out together.</p>"
+    +"<a href='https://coachcarofitness.com/home' target='_blank' class='btn-cta'>Book Your Free Clarity Call &#8594;</a>"
+    +"<p class='ctanote'>Free &middot; No pressure &middot; Just clarity on your next step</p>"
+    +"<div class='divider'></div>"
+    +"<button class='retake' onclick='go(showIntro)'>Retake the quiz</button>"
+    +"</div>";
+}
+
+showIntro();
+</script>
+</body>
+</html>
