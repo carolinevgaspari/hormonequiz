@@ -54,7 +54,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .t1 .rtype{color:#C17355}
 .t2 .rtype{color:#5C7D60}
 .t3 .rtype{color:#6B4C3B}
-.rhead{font-size:clamp(22px,4vw,34px);font-weight:700;line-height:1.2;margin-bottom:18px;color:#6B4C3B}
+.rhead{font-size:clamp(20px,4vw,30px);font-weight:700;line-height:1.2;margin-bottom:16px;color:#6B4C3B}
 .rbody{font-size:15px;line-height:1.72;color:#5C4033;margin-bottom:24px}
 .actbox{border-radius:14px;padding:20px 22px;margin-bottom:28px}
 .t1 .actbox{background:rgba(193,115,85,.09);border:1px solid rgba(193,115,85,.22)}
@@ -153,7 +153,7 @@ var R={
   }
 };
 
-var qi=0,sc=[0,0,0],resultType=1;
+var qi=0, sc=[0,0,0], resultType=1;
 var card=document.getElementById("card");
 
 function go(fn){
@@ -162,29 +162,16 @@ function go(fn){
 }
 
 function showIntro(){
-  qi=0;sc=[0,0,0];
-  card.innerHTML="<div class='screen'>"
-    +"<div class='eyebrow'>Free 2-Minute Quiz</div>"
-    +"<h1 class='bigtitle'>What Is Your<br><i>Hormone Type?</i></h1>"
-    +"<p class='intro-sub'>If you are eating well, staying active, and still cannot lose weight - your hormones are likely the missing piece.<br><br>Answer 5 quick questions and find out exactly which hormone pattern is working against you - and what to do about it.</p>"
-    +"<div class='badges'><span class='bdg'>&#9200; 2 minutes</span><span class='bdg'>&#10024; Instant results</span></div>"
-    +"<button class='btn-go' onclick='go(showQ)'>Take the Quiz &#8594;</button>"
-    +"</div>";
+  qi=0; sc=[0,0,0];
+  card.innerHTML="<div class='screen'><div class='eyebrow'>Free 2-Minute Quiz</div><h1 class='bigtitle'>What Is Your<br><i>Hormone Type?</i></h1><p class='intro-sub'>If you are eating well, staying active, and still cannot lose weight - your hormones are likely the missing piece.<br><br>Answer 5 quick questions and find out exactly which hormone pattern is working against you - and what to do about it.</p><div class='badges'><span class='bdg'>&#9200; 2 minutes</span><span class='bdg'>&#10024; Instant results</span></div><button class='btn-go' onclick='go(showQ)'>Take the Quiz &#8594;</button></div>";
 }
 
 function showQ(){
   var q=Q[qi];
   var pct=Math.round(qi/Q.length*100);
-  var html="<div class='screen'>"
-    +"<div class='pgwrap'><div class='pgmeta'><span>Your Progress</span><span>"+qi+" of "+Q.length+"</span></div>"
-    +"<div class='pgtrack'><div class='pgfill' style='width:"+pct+"%'></div></div></div>"
-    +"<div class='qlabel'>Question "+(qi+1)+" of "+Q.length+"</div>"
-    +"<div class='qtext'>"+q.t+"</div>"
-    +"<div class='opts'>";
+  var html="<div class='screen'><div class='pgwrap'><div class='pgmeta'><span>Your Progress</span><span>"+qi+" of "+Q.length+"</span></div><div class='pgtrack'><div class='pgfill' style='width:"+pct+"%'></div></div></div><div class='qlabel'>Question "+(qi+1)+" of "+Q.length+"</div><div class='qtext'>"+q.t+"</div><div class='opts'>";
   for(var i=0;i<q.o.length;i++){
-    html+="<button class='opt' id='o"+i+"' onclick='pick("+i+")'>"
-      +"<div class='radio'><div class='rdot'></div></div>"
-      +"<span>"+q.o[i].t+"</span></button>";
+    html+="<button class='opt' id='o"+i+"' onclick='pick("+i+")'><div class='radio'><div class='rdot'></div></div><span>"+q.o[i].t+"</span></button>";
   }
   html+="</div></div>";
   card.innerHTML=html;
@@ -196,18 +183,14 @@ function pick(i){
   document.getElementById("o"+i).classList.add("sel");
   var s=Q[qi].o[i].s;
   setTimeout(function(){
-    sc[0]+=s[0];sc[1]+=s[1];sc[2]+=s[2];
+    sc[0]+=s[0]; sc[1]+=s[1]; sc[2]+=s[2];
     qi++;
     if(qi<Q.length) go(showQ); else go(showLoading);
   },360);
 }
 
 function showLoading(){
-  card.innerHTML="<div class='screen ldwrap'>"
-    +"<div class='ldtitle'>Analyzing your answers...</div>"
-    +"<div class='ldsub'>Identifying your hormone type</div>"
-    +"<div class='dots'><div class='dot'></div><div class='dot'></div><div class='dot'></div></div>"
-    +"</div>";
+  card.innerHTML="<div class='screen ldwrap'><div class='ldtitle'>Analyzing your answers...</div><div class='ldsub'>Identifying your hormone type</div><div class='dots'><div class='dot'></div><div class='dot'></div><div class='dot'></div></div></div>";
   setTimeout(function(){go(showResult);},1800);
 }
 
@@ -215,27 +198,27 @@ function showResult(){
   var mx=Math.max(sc[0],sc[1],sc[2]);
   resultType=sc.indexOf(mx)+1;
   var r=R[resultType];
-  card.innerHTML="<div class='screen "+r.tc+"'>"
-    +"<div class='pgwrap'><div class='pgmeta'><span>Your Progress</span><span>Complete &#10003;</span></div>"
-    +"<div class='pgtrack'><div class='pgfill' style='width:100%'></div></div></div>"
-    +"<div class='ricon-bg'>"+r.icon+"</div>"
-    +"<div class='rtag'>Your Hormone Type</div>"
-    +"<div class='rtype'>"+r.type+"</div>"
-    +"<h2 class='rhead'>"+r.head+"</h2>"
-    +"<p class='rbody'>"+r.body+"</p>"
-    +"<div class='actbox'><div class='actlbl'>"+r.albl+"</div><div class='acttext'>"+r.act+"</div></div>"
-    +"<div class='divider'></div>"
-    +"<p class='ctapre'>Want to know exactly how to work with your hormone type to finally lose weight for good?<br><br>Book your free Clarity Call and we will map it all out together.</p>"
-    +"<div class='contact-form'>"
-    +"<input type='text' id='f-name' placeholder='Your name' />"
-    +"<input type='email' id='f-email' placeholder='Your email address' />"
-    +"<input type='tel' id='f-phone' placeholder='Your phone number' />"
-    +"</div>"
-    +"<button class='btn-cta' id='submit-btn' onclick='submitForm()'>Book Your Free Clarity Call &#8594;</button>"
-    +"<p class='ctanote'>Free &middot; No pressure &middot; Just clarity on your next step</p>"
-    +"<div class='divider'></div>"
-    +"<button class='retake' onclick='go(showIntro)'>Retake the quiz</button>"
-    +"</div>";
+  var html="<div class='screen "+r.tc+"'>";
+  html+="<div class='pgwrap'><div class='pgmeta'><span>Your Progress</span><span>Complete &#10003;</span></div><div class='pgtrack'><div class='pgfill' style='width:100%'></div></div></div>";
+  html+="<div class='ricon-bg'>"+r.icon+"</div>";
+  html+="<div class='rtag'>Your Hormone Type</div>";
+  html+="<div class='rtype'>"+r.type+"</div>";
+  html+="<h2 class='rhead'>"+r.head+"</h2>";
+  html+="<div class='divider'></div>";
+  html+="<p class='ctapre'>Want to know exactly how to work with your hormone type to finally lose weight for good?<br><br>Book your free Clarity Call and we will map it all out together.</p>";
+  html+="<div class='contact-form'>";
+  html+="<input type='text' id='f-name' placeholder='Your name' />";
+  html+="<input type='email' id='f-email' placeholder='Your email address' />";
+  html+="<input type='tel' id='f-phone' placeholder='Your phone number' />";
+  html+="</div>";
+  html+="<button class='btn-cta' id='submit-btn' onclick='submitForm()'>Book Your Free Clarity Call &#8594;</button>";
+  html+="<p class='ctanote'>Free &middot; No pressure &middot; Just clarity on your next step</p>";
+  html+="<div class='divider'></div>";
+  html+="<p class='rbody'>"+r.body+"</p>";
+  html+="<div class='actbox'><div class='actlbl'>"+r.albl+"</div><div class='acttext'>"+r.act+"</div></div>";
+  html+="<button class='retake' onclick='go(showIntro)'>Retake the quiz</button>";
+  html+="</div>";
+  card.innerHTML=html;
 }
 
 async function submitForm(){
@@ -243,12 +226,9 @@ async function submitForm(){
   var email=document.getElementById('f-email').value.trim();
   var phone=document.getElementById('f-phone').value.trim();
   var valid=true;
-  if(!name){document.getElementById('f-name').classList.add('err');valid=false;}
-  else{document.getElementById('f-name').classList.remove('err');}
-  if(!email||!email.includes('@')){document.getElementById('f-email').classList.add('err');valid=false;}
-  else{document.getElementById('f-email').classList.remove('err');}
-  if(!phone){document.getElementById('f-phone').classList.add('err');valid=false;}
-  else{document.getElementById('f-phone').classList.remove('err');}
+  if(!name){document.getElementById('f-name').classList.add('err');valid=false;}else{document.getElementById('f-name').classList.remove('err');}
+  if(!email||!email.includes('@')){document.getElementById('f-email').classList.add('err');valid=false;}else{document.getElementById('f-email').classList.remove('err');}
+  if(!phone){document.getElementById('f-phone').classList.add('err');valid=false;}else{document.getElementById('f-phone').classList.remove('err');}
   if(!valid) return;
   var btn=document.getElementById('submit-btn');
   btn.textContent='Sending...';
@@ -277,12 +257,7 @@ async function submitForm(){
 }
 
 function showThanks(){
-  card.innerHTML="<div class='screen'>"
-    +"<div class='ty-wrap'>"
-    +"<div class='ty-icon'>🌿</div>"
-    +"<div class='ty-title'>You're on your way.</div>"
-    +"<p class='ty-sub'>Thank you! Check your inbox — I'll be in touch soon to get your free Clarity Call scheduled. You took a real step today and I cannot wait to help you figure this out together.</p>"
-    +"</div></div>";
+  card.innerHTML="<div class='screen'><div class='ty-wrap'><div class='ty-icon'>🌿</div><div class='ty-title'>You're on your way.</div><p class='ty-sub'>Thank you! Check your inbox — I'll be in touch soon to get your free Clarity Call scheduled. You took a real step today and I cannot wait to help you figure this out together.</p></div></div>";
 }
 
 showIntro();
